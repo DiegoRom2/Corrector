@@ -13,6 +13,8 @@
 #include "stdafx.h"
 #include <string.h>
 #include "corrector.h"
+#define TAMTOKEN 50
+#include <stdio.h>
 //Funciones publicas del proyecto
 /*****************************************************************************************************************
 	DICCIONARIO: Esta funcion crea el diccionario completo
@@ -21,14 +23,21 @@
 	int		iEstadisticas[]			:	Arreglo con el numero de veces que aparecen las palabras en el diccionario
 	int &	iNumElementos			:	Numero de elementos en el diccionario
 ******************************************************************************************************************/
-void	Diccionario			(char *szNombre, char szPalabras[][TAMTOKEN], int iEstadisticas[], int &iNumElementos)
-{
 
-	//Sustituya estas lineas por su código
-	iNumElementos=1;
-	strcpy(szPalabras[0],"AquiVaElDiccionario");
-	iEstadisticas[0] = 1; // la primer palabra aparece solo una vez.
-}
+
+	
+	void Diccionario(char* szNombre, char szPalabras[][TAMTOKEN], int iEstadisticas[], int& iNumElementos)
+	{
+		// Abrir el archivo en modo lectura
+		FILE* fp;
+		fopen_s(&fp, szNombre, "r");
+
+		// Verificar que el archivo se abrió correctamente
+		if (fp == NULL) {
+			return;
+		}
+
+    }
 
 /*****************************************************************************************************************
 	ListaCandidatas: Esta funcion recupera desde el diccionario las palabras validas y su peso
