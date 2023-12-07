@@ -71,6 +71,13 @@ bool esSeparador(char ch) {
 				}
 			}
 		}
+		// Finalizar la última palabra y realizar estadísticas
+		if (k > 0) {
+			palabra[k] = '\0';
+			iEstadisticas[iNumElementos]++;
+			strcpy_s(szPalabras[iNumElementos], palabra);
+			iNumElementos++;
+		}
     }
 
 /*****************************************************************************************************************
