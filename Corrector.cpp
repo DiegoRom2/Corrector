@@ -160,6 +160,20 @@ bool esSeparador(char ch) {
 				}
 			}
 		}
+		// Eliminar duplicados consecutivos en la lista final
+		int i5 = 0;
+		while (i5 < iNumLista - 1) {
+			if (strcmp(szListaFinal[i5], szListaFinal[i5 + 1]) == 0) {
+				// Eliminar duplicado
+				for (int e = i5 + 1; e < iNumLista; e++) {
+					strcpy_s(szListaFinal[e], szListaFinal[e + 1]);
+				}
+				iNumLista--;
+			}
+			else {
+				i5++;
+			}
+		}
 	}
 
 /*****************************************************************************************************************
