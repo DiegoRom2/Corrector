@@ -110,23 +110,40 @@ bool esSeparador(char ch) {
 	int		iPeso[],							//Peso de las palabras en la lista final
 	int &	iNumLista)							//Numero de elementos en la szListaFinal
 ******************************************************************************************************************/
-void	ListaCandidatas		(
-	char	szPalabrasSugeridas[][TAMTOKEN],	//Lista de palabras clonadas
-	int		iNumSugeridas,						//Lista de palabras clonadas
-	char	szPalabras[][TAMTOKEN],				//Lista de palabras del diccionario
-	int		iEstadisticas[],					//Lista de las frecuencias de las palabras
-	int		iNumElementos,						//Numero de elementos en el diccionario
-	char	szListaFinal[][TAMTOKEN],			//Lista final de palabras a sugerir
-	int		iPeso[],							//Peso de las palabras en la lista final
-	int &	iNumLista)							//Numero de elementos en la szListaFinal
-{
+	void	ListaCandidatas(
+		char	szPalabrasSugeridas[][TAMTOKEN],	//Lista de palabras clonadas
+		int		iNumSugeridas,						//Lista de palabras clonadas
+		char	szPalabras[][TAMTOKEN],				//Lista de palabras del diccionario
+		int		iEstadisticas[],					//Lista de las frecuencias de las palabras
+		int		iNumElementos,						//Numero de elementos en el diccionario
+		char	szListaFinal[][TAMTOKEN],			//Lista final de palabras a sugerir
+		int		iPeso[],							//Peso de las palabras en la lista final
+		int& iNumLista)							//Numero de elementos en la szListaFinal
+	{
 
-	//Sustituya estas lineas por su código
-	strcpy(szListaFinal[0], szPalabrasSugeridas[ 0] ); //la palabra candidata
-	iPeso[0] = iEstadisticas[0];			// el peso de la palabra candidata
-	
-	iNumLista = 1;							//Una sola palabra candidata
-}
+		//Sustituya estas lineas por su código
+		/* strcpy(szListaFinal[0], szPalabrasSugeridas[ 0] ); //la palabra candidata
+		iPeso[0] = iEstadisticas[0];			// el peso de la palabra candidata
+
+		iNumLista = 1;							//Una sola palabra candidata
+		*/
+		// Inicializar la lista final y el contador
+		iNumLista = 0;
+
+		// Filtrar palabras sugeridas y calcular pesos
+		for (int i3 = 0; i3 < iNumElementos; i3++) {
+			int palabraEncontrada = 0;
+
+			for (int a = 0; a < iNumSugeridas && !palabraEncontrada; a++) {
+				if (strcmp(szPalabras[i3], szPalabrasSugeridas[a]) == 0) {
+					strcpy_s(szListaFinal[iNumLista], szPalabrasSugeridas[a]);
+					iPeso[iNumLista] = iEstadisticas[i3];
+					iNumLista++;
+					palabraEncontrada = 1;
+				}
+			}
+		}
+	}
 
 /*****************************************************************************************************************
 	ClonaPalabras: toma una palabra y obtiene todas las combinaciones y permutaciones requeridas por el metodo
