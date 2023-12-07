@@ -143,6 +143,23 @@ bool esSeparador(char ch) {
 				}
 			}
 		}
+		// Ordenar la lista final por pesos de manera descendente
+		for (int i4 = 0; i4 < iNumLista - 1; i4++) {
+			for (int l = 0; l < iNumLista - 1 - i4; l++) {
+				if (iPeso[l] < iPeso[l + 1]) {
+					// Intercambiar pesos
+					int tempPeso = iPeso[l];
+					iPeso[l] = iPeso[l + 1];
+					iPeso[l + 1] = tempPeso;
+
+					// Intercambiar palabras
+					char tempPalabra[TAMTOKEN];
+					strcpy_s(tempPalabra, szListaFinal[l]);
+					strcpy_s(szListaFinal[l], szListaFinal[l + 1]);
+					strcpy_s(szListaFinal[l + 1], tempPalabra);
+				}
+			}
+		}
 	}
 
 /*****************************************************************************************************************
