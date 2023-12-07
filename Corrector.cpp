@@ -24,7 +24,9 @@
 	int &	iNumElementos			:	Numero de elementos en el diccionario
 ******************************************************************************************************************/
 
-
+bool esSeparador(char ch) {
+	return (ch == ' ' || ch == '\t' || ch == '\n' || ch == ',' || ch == ';' || ch == '.' || ch == '(' || ch == ')');
+}
 	
 	void Diccionario(char* szNombre, char szPalabras[][TAMTOKEN], int iEstadisticas[], int& iNumElementos)
 	{
@@ -36,7 +38,39 @@
 		if (fp == NULL) {
 			return;
 		}
+		// Inicializar variables
+		iNumElementos = 0;
+		char palabra[TAMTOKEN];
+		int k = 0;
 
+		// Procesar el archivo caracter por caracter hasta el final
+		int ch;
+		while ((ch = fgetc(fp)) != EOF) {
+			// Construir las palabras y realizar estadísticas
+			if (k < TAMTOKEN - 1) {  // Evitar desbordamiento del buffer
+				if (!esSeparador(ch)) {
+					palabra[k++] = tolower(ch);
+				}
+				else if (k > 0) {
+					// Finalizar la palabra y realizar estadísticas
+					palabra[k] = '\0';
+					iEstadisticas[iNumElementos] = 1;
+					strcpy_s(szPalabras[iNumElementos], palabra);
+					iNumElementos++;
+					k = 0;
+
+					// Eliminar duplicados y actualizar estadísticas
+					int elementosFor = iNumElementos - 1;
+					for (int i = 0; i < elementosFor; i++) {
+						if (strcmp(szPalabras[elementosFor], szPalabras[i]) == 0) {
+							iNumElementos--;
+							iEstadisticas[i]++;
+							iEstadisticas[elementosFor] = 0;
+						}
+					}
+				}
+			}
+		}
     }
 
 /*****************************************************************************************************************
