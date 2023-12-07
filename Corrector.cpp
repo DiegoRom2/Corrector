@@ -78,6 +78,24 @@ bool esSeparador(char ch) {
 			strcpy_s(szPalabras[iNumElementos], palabra);
 			iNumElementos++;
 		}
+		// Ordenar alfabéticamente las palabras y sus estadísticas 
+		for (int i = 0; i < iNumElementos - 1; i++) {
+			for (int j = 0; j < iNumElementos - 1; j++) {
+				if (strcmp(szPalabras[j], szPalabras[j + 1]) > 0) {
+					// Intercambiar palabras y estadísticas
+					char aux[TAMTOKEN];
+					strcpy_s(aux, szPalabras[j]);
+					strcpy_s(szPalabras[j], szPalabras[j + 1]);
+					strcpy_s(szPalabras[j + 1], aux);
+					int estadisticaTemp = iEstadisticas[j];
+					iEstadisticas[j] = iEstadisticas[j + 1];
+					iEstadisticas[j + 1] = estadisticaTemp;
+				}
+			}
+		}
+
+		// Cerrar el archivo
+		fclose(fp);
     }
 
 /*****************************************************************************************************************
